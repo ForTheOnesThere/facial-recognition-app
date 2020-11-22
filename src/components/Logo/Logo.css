@@ -1,5 +1,5 @@
 .Tilt {
-    background-color: blueviolet;
+  background: linear-gradient(90deg, rgba(255,186,254,1) 0%, rgba(255,72,209,1) 100%);
 }
 
   .center {
