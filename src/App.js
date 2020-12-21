@@ -39,23 +39,30 @@ class App extends Component {
     super();
     this.state = {
       input: '',
+      imageURL: ''
     }
   }
 
-  onInputChange = (event) => {
-    console.log(event.target.value);
+  onInputChange = (event) => {  
+    this.setState({input: event.target.value});
   }
 
   onButtonPress = () => {
     console.log('click');
+    this.setState({imageURL: this.state.input});
+
     app.models.initModel({id: Clarifai.FACE_DETECT_MODEL})
       .then(generalModel => {
-        return generalModel.predict("https://www.byrdie.com/thmb/pr2U7ghfvv3Sz8zJCHWFLT2K55E=/735x0/cdn.cliqueinc.com__cache__posts__274058__face-masks-for-pores-274058-1543791152268-main.700x0c-270964ab60624c5ca853057c0c151091-d3174bb99f944fc492f874393002bab7.jpg");
+        return generalModel.predict(this.state.input);
       })
       .then(response => {
-        var concepts = response['outputs'][0]['data']['regions'][0];
-        console.log(concepts);
-      })
+        var boundingBox = response.outputs[0].data.regions[0].region_info.bounding_box;
+        console.log(boundingBox);
+      },
+
+        function(err){
+          console.log('there was an error!');
+        })     
   }
 
   render() {
@@ -66,7 +73,7 @@ class App extends Component {
       <Logo />
       <Rank />
       <ImageLinkForm onInputChange={this.onInputChange} onButtonPress={this.onButtonPress}/>
-      <FaceRecognition />
+      <FaceRecognition image={this.state.imageURL}/>
       </div>
     );
   }
