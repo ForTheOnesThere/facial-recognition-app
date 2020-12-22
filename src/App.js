@@ -4,6 +4,8 @@ import Logo from './components/Logo/Logo.js';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition.js';
 import Rank from './components/Rank/Rank.js';
+import SignIn from './components/SignIn/SignIn.js';
+import Register from './components/Register/Register.js';
 import Particles from 'react-particles-js';
 import { Component } from 'react';
 import Clarifai from 'clarifai';
@@ -41,6 +43,7 @@ class App extends Component {
       input: '',
       imageURL: '',
       box: {},
+      route: 'signin',
     }
   }
 
@@ -78,16 +81,36 @@ class App extends Component {
     this.setState({box: box});
   }
 
+  changeRoute = (route) => {
+    this.setState({route: route});
+  }
+
   render() {
     return (
       <div className="App">
+      
       <Particles params={particleParams} className='particles'/>
-      <Navigation />
-      <Logo />
-      <Rank />
-      <ImageLinkForm onInputChange={this.onInputChange} onButtonPress={this.onButtonPress}/>
-      <FaceRecognition box={this.state.box} image={this.state.imageURL}/>
+      
+
+      
+        { this.state.route === 'home' 
+          ? <div>
+              <Navigation changeRoute={this.changeRoute}/>
+              <Logo />
+              <Rank />
+              <ImageLinkForm onInputChange={this.onInputChange} onButtonPress={this.onButtonPress}/>
+              <FaceRecognition box={this.state.box} image={this.state.imageURL}/>
+            </div>
+          : (
+            this.state.route === 'register'
+            ? <Register changeRoute={this.changeRoute}/>
+            : <SignIn changeRoute={this.changeRoute}/>
+          )
+         }
+
+ 
       </div>
+      
     );
   }
   
