@@ -52,17 +52,9 @@ class App extends Component {
     this.setState({imageURL: this.state.input});
 
     app.models.initModel({id: Clarifai.FACE_DETECT_MODEL})
-      .then(generalModel => {
-        return generalModel.predict(this.state.input);
-      })
-      .then(response => {
-        var boundingBox = response.outputs[0].data.regions[0].region_info.bounding_box;
-        console.log(boundingBox);
-      },
-
-        function(err){
-          console.log('there was an error!');
-        })     
+      .then(generalModel => generalModel.predict(this.state.input))
+      .then(response => console.log(response.outputs[0].data.regions[0].region_info.bounding_box))
+      .catch(err => console.log(`there was an error: ${err}`))  
   }
 
   render() {
