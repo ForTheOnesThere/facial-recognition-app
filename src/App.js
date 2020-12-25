@@ -126,14 +126,14 @@ class App extends Component {
           ? <div>
               <Navigation changeRoute={this.changeRoute}/>
               <Logo />
-              <Rank />
+              <Rank userDetails={this.state.user}/>
               <ImageLinkForm onInputChange={this.onInputChange} onButtonPress={this.onButtonPress}/>
               <FaceRecognition box={this.state.box} image={this.state.imageURL}/>
             </div>
           : (
             this.state.route === 'register'
             ? <Register showAppState={this.showAppState} loadUser={this.loadUser} changeRoute={this.changeRoute}/>
-            : <SignIn changeRoute={this.changeRoute}/>
+            : <SignIn loadUser={this.loadUser} changeRoute={this.changeRoute}/>
           )
          }
 
