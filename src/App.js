@@ -44,6 +44,13 @@ class App extends Component {
       imageURL: '',
       box: {},
       route: 'signin',
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        entries: '',
+        joined: ''
+      }
     }
   }
 
@@ -51,6 +58,22 @@ class App extends Component {
     fetch('http://localhost:3000')
     .then(response => response.json())
     .then(console.log);
+  }
+
+  showAppState = () => {
+    console.log(this.state);
+  }
+
+  loadUser = (data) => {
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined
+      }
+    })
   }
 
   onInputChange = (event) => {  
@@ -109,7 +132,7 @@ class App extends Component {
             </div>
           : (
             this.state.route === 'register'
-            ? <Register changeRoute={this.changeRoute}/>
+            ? <Register showAppState={this.showAppState} loadUser={this.loadUser} changeRoute={this.changeRoute}/>
             : <SignIn changeRoute={this.changeRoute}/>
           )
          }
