@@ -86,7 +86,22 @@ class App extends Component {
 
     app.models.initModel({id: Clarifai.FACE_DETECT_MODEL})
       .then(generalModel => generalModel.predict(this.state.input))
-      .then(response => this.drawBox(this.locateFace(response)))
+      .then(response => {
+        if (response) {
+          fetch('http://localhost:3000/image',{
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+          .then(res => res.json())
+          .then(count => {
+            this.setState(Object.assign(this.state.user, {entries: count}))
+          })
+        }
+        this.drawBox(this.locateFace(response))
+      })
       .catch(err => console.log(`there was an error: ${err}`))  
   }
 
