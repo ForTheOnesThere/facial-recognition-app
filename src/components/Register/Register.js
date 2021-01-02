@@ -13,22 +13,18 @@ class Register extends React.Component {
     }
 
     onEmailChange = (event) => {
-        console.log(event.target.value);
         this.setState({signUpEmail: event.target.value});
     }
 
     onPasswordChange = (event) => {
-        console.log(event.target.value);
         this.setState({signUpPassword: event.target.value});
     }
 
     onNameChange = (event) => {
-        console.log(event.target.value);
         this.setState({signUpName: event.target.value});
     }
 
     onSubmitRegister = () => {
-        console.log(this.state);
         fetch('http://localhost:3000/register', {
 					method: 'post',
 					headers: {'Content-Type': 'application/json'},
@@ -43,7 +39,6 @@ class Register extends React.Component {
 					if (user){
                         this.props.loadUser(user);
                         this.props.changeRoute('home');
-                        this.props.showAppState();
 					}
                 })   
         this.props.changeRoute('home')

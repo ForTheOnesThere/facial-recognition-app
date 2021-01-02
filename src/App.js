@@ -35,33 +35,32 @@ const particleParams = {
   }
 }
 
+const initialState = {
+  input: '',
+  imageURL: '',
+  box: {},
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    entries: '',
+    joined: ''
+  }
+}
+
 class App extends Component {
 
   constructor() {
     super();
-    this.state = {
-      input: '',
-      imageURL: '',
-      box: {},
-      route: 'signin',
-      user: {
-        id: '',
-        name: '',
-        email: '',
-        entries: '',
-        joined: ''
-      }
-    }
+    this.state = initialState
   }
 
   componentDidMount(){
     fetch('http://localhost:3000')
     .then(response => response.json())
     .then(console.log);
-  }
-
-  showAppState = () => {
-    console.log(this.state);
   }
 
   loadUser = (data) => {
@@ -124,6 +123,13 @@ class App extends Component {
   }
 
   changeRoute = (route) => {
+    if (route === 'signin'){
+      this.setState(initialState)
+      console.log('signed out')
+    } else if (route === 'home'){
+      this.setState({isSignedIn: true})
+      console.log('signed in')
+    }
     this.setState({route: route});
   }
 
@@ -145,7 +151,7 @@ class App extends Component {
             </div>
           : (
             this.state.route === 'register'
-            ? <Register showAppState={this.showAppState} loadUser={this.loadUser} changeRoute={this.changeRoute}/>
+            ? <Register loadUser={this.loadUser} changeRoute={this.changeRoute}/>
             : <SignIn loadUser={this.loadUser} changeRoute={this.changeRoute}/>
           )
          }
