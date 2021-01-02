@@ -110,7 +110,6 @@ class App extends Component {
     const userImage = document.getElementById('user-image');
     const width = Number(userImage.width);
     const height = Number(userImage.height);
-    console.log(boundingInfo, width, height);
 
     return {
       left: boundingInfo.left_col * width,
@@ -121,7 +120,6 @@ class App extends Component {
   }
 
   drawBox = (box) => {
-    console.log(box);
     this.setState({box: box});
   }
 
