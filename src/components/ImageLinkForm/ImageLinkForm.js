@@ -4,8 +4,8 @@ import './ImageLinkForm.css';
 const ImageLinkForm = (props) => {
     return(
      <div>
-         <p className='f3'>
-             {'This app will detect faces in images. Give it a try!'}
+         <p className='f3 p4' style={{marginLeft: '5%', marginRight: '5%'}}>
+             {'This app will detect faces in images. Paste an image url to give it a try!'}
          </p>
          <div className='center'>
              <div className='pa4 br3 shadow-5 center form'>

@@ -1,6 +1,5 @@
 import './App.css';
 import Navigation from './components/Navigation/Navigation.js';
-import Logo from './components/Logo/Logo.js';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition.js';
 import Rank from './components/Rank/Rank.js';
@@ -141,7 +140,6 @@ class App extends Component {
           { this.state.route === 'home' 
             ? <div>
                 <Navigation changeRoute={this.changeRoute}/>
-                <Logo />
                 <Rank userDetails={this.state.user}/>
                 <ImageLinkForm onInputChange={this.onInputChange} onButtonPress={this.onButtonPress}/>
                 <FaceRecognition box={this.state.box} image={this.state.imageURL}/>
